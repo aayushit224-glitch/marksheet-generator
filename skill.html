@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Skills</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .skills-container {
+      background: #fff;
+      border: 2px solid #333;
+      padding: 20px;
+      width: 500px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background: #3498db;
+      color: white;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    li:hover {
+      background: #2980b9;
+    }
+    input {
+      width: 70%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    button {
+      width: 25%;
+      padding: 8px;
+      margin-left: 5px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #27ae60;
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="skills-container">
+    <h2>💡 My Skills</h2>
+    <!-- Initial Skills List -->
+    <ul id="skills-list">
+      <li>Java</li>
+      <li>SQL</li>
+      <li>HTML & CSS</li>
+      <li>JavaScript</li>
+      <li>Cybersecurity Basics</li>
+    </ul>
+
+    <!-- Add Skill Input -->
+    <input type="text" id="new-skill" placeholder="Enter new skill">
+    <button onclick="addSkill()">Add Skill</button>
+
+    <p class="note">Tip: Click on any skill to remove it.</p>
+  </div>
+
+  <script>
+    // Function to add a new skill
+    function addSkill() {
+      const skillInput = document.getElementById("new-skill");
+      const skillValue = skillInput.value.trim();
+
+      if (skillValue === "") {
+        alert("Please enter a skill.");
+        return;
+      }
+
+      const ul = document.getElementById("skills-list");
+      const li = document.createElement("li");
+      li.textContent = skillValue;
+
+      // Allow removal on click
+      li.onclick = function() {
+        ul.removeChild(li);
+      };
+
+      ul.appendChild(li);
+      skillInput.value = ""; // Clear input field
+    }
+
+    // Attach removal functionality to initial skills
+    document.querySelectorAll("#skills-list li").forEach(li => {
+      li.onclick = function() {
+        li.parentNode.removeChild(li);
+      };
+    });
+  </script>
+</body>
+</html>

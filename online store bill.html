@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Store Bill Calculator</title>
+</head>
+<body>
+  <h2>Online Store Bill Calculator</h2>
+  <label for="items">Enter number of items:</label>
+  <input type="number" id="items" placeholder="Number of items">
+  <button onclick="calculateBill()">Calculate Bill</button>
+
+  <div id="result" style="margin-top:20px; font-size:16px; font-weight:bold;"></div>
+
+  <script>
+    // Function to calculate total bill
+    function calculateBill() {
+      // Get number of items from user
+      const numItems = parseInt(document.getElementById("items").value);
+
+      if (isNaN(numItems) || numItems <= 0) {
+        alert("Please enter a valid number of items.");
+        return;
+      }
+
+      let total = 0;
+
+      // Loop to accept price of each item
+      for (let i = 1; i <= numItems; i++) {
+        let price = parseFloat(prompt("Enter price of item " + i + ":"));
+        
+        // Validate input
+        if (isNaN(price) || price < 0) {
+          alert("Invalid price entered. Please try again.");
+          return;
+        }
+
+        total += price; // Add item price to total
+      }
+
+      // Apply discount if total exceeds ₹5000
+      let finalAmount = total;
+      if (total > 5000) {
+        finalAmount = total - (total * 0.10); // 10% discount
+      }
+
+      // Display result
+      document.getElementById("result").innerHTML =
+        "Total Bill: ₹" + total.toFixed(2) + "<br>" +
+        (total > 5000 ? "Discount Applied: 10%<br>" : "") +
+        "Final Payable Amount: ₹" + finalAmount.toFixed(2);
+    }
+  </script>
+</body>
+</html>

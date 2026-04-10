@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Marksheet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .marksheet-container {
+      background: #fff;
+      border: 2px solid #333;
+      padding: 20px;
+      width: 500px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    .result {
+      margin-top: 20px;
+      border-top: 2px solid #333;
+      padding-top: 15px;
+    }
+    .result p {
+      font-size: 16px;
+      margin: 6px 0;
+    }
+    .grade {
+      font-weight: bold;
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="marksheet-container">
+    <h2>Student Marksheet</h2>
+    <!-- Student Details -->
+    <label for="name">Student Name:</label>
+    <input type="text" id="name" placeholder="Enter student name">
+
+    <label for="roll">Roll Number:</label>
+    <input type="text" id="roll" placeholder="Enter roll number">
+
+    <!-- Marks Input -->
+    <label>Marks (out of 100):</label>
+    <input type="number" id="sub1" placeholder="Subject 1">
+    <input type="number" id="sub2" placeholder="Subject 2">
+    <input type="number" id="sub3" placeholder="Subject 3">
+    <input type="number" id="sub4" placeholder="Subject 4">
+    <input type="number" id="sub5" placeholder="Subject 5">
+
+    <button onclick="generateMarksheet()">Generate Marksheet</button>
+
+    <!-- Result Display -->
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Function to calculate grade based on percentage
+    function getGrade(percentage) {
+      if (percentage >= 90) return "A+";
+      else if (percentage >= 80) return "A";
+      else if (percentage >= 70) return "B";
+      else if (percentage >= 60) return "C";
+      else if (percentage >= 50) return "D";
+      else return "Fail";
+    }
+
+    // Function to generate marksheet
+    function generateMarksheet() {
+      // Get student details
+      const name = document.getElementById("name").value;
+      const roll = document.getElementById("roll").value;
+
+      // Get marks of 5 subjects
+      const marks = [
+        parseInt(document.getElementById("sub1").value) || 0,
+        parseInt(document.getElementById("sub2").value) || 0,
+        parseInt(document.getElementById("sub3").value) || 0,
+        parseInt(document.getElementById("sub4").value) || 0,
+        parseInt(document.getElementById("sub5").value) || 0
+      ];
+
+      // Calculate total and percentage
+      const total = marks.reduce((a, b) => a + b, 0);
+      const percentage = (total / 500) * 100;
+      const grade = getGrade(percentage);
+
+      // Display result
+      document.getElementById("result").innerHTML = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Roll Number:</strong> ${roll}</p>
+        <p><strong>Total Marks:</strong> ${total} / 500</p>
+        <p><strong>Percentage:</strong> ${percentage.toFixed(2)}%</p>
+        <p class="grade"><strong>Grade:</strong> ${grade}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
